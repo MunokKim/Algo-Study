@@ -1,26 +1,26 @@
 //
-//  File.swift
+//  main.swift
 //  AlgoStudy
 //
-//  Created by 김문옥 on 2021/06/29.
+//  Created by 김문옥 on 2021/06/27.
 //
 
-// https://www.acmicpc.net/problem/11651
-// Baekjoon 11651번 좌표 정렬하기 2
+// https://www.acmicpc.net/problem/10989
+// Baekjoon 10989번 수 정렬하기 3
 
-let numberOfDots: Int = Int(readLine()!)!
-var coordinates: [(x: Int, y: Int)] = []
+let fileIO: FileIO = FileIO()
+let numberOfNumber: Int = fileIO.readInt()
+var accumulator: [Int] = Array(repeating: 0, count: 10001)
+var output: String = String()
 
-for _ in 0..<numberOfDots {
-    let input: [Int] = readLine()!
-        .split(separator: " ")
-        .map { Int(String($0))! }
-    let coordinate: (x: Int, y: Int) = (x: input[0], y: input[1])
-    coordinates.append(coordinate)
+for _ in 0..<numberOfNumber {
+    let input: Int = fileIO.readInt()
+    accumulator[input] += 1
 }
 
-coordinates.sort { $0.y == $1.y ? $0.x < $1.x : $0.y < $1.y }
-
-for coordinate in coordinates {
-    print("\(coordinate.x) \(coordinate.y)")
+for (index, accumulatedCount) in accumulator.enumerated() {
+    output += String(repeating: "\(index)\n", count: accumulatedCount)
 }
+
+print(output)
+

@@ -16,13 +16,13 @@ final class FileIO {
 
     init(fileHandle: FileHandle = FileHandle.standardInput) {
         
-        buffer = Array(try! fileHandle.readToEnd()!)+[UInt8(0)] // 인덱스 범위 넘어가는 것 방지
+        buffer = Array(fileHandle.readDataToEndOfFile())+[UInt8(0)] // 인덱스 범위 넘어가는 것 방지
     }
 
     @inline(__always) private func read() -> UInt8 {
         defer { index += 1 }
 
-        return buffer[index]
+        return buffer.withUnsafeBufferPointer { $0[index] }
     }
 
     @inline(__always) func readInt() -> Int {
